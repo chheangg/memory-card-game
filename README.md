@@ -1,4 +1,7 @@
 # Memory Card Game
+With a list of well-known Pokemons, the player must consecutively choose all 16 unique pokemon in succession to win. Difficulty will increase on certain stage when a level threshhold is reached.
+
+This project was made with ReactJS, Scss, and coffee under a day! (No kidding). Showcased for The Odin Project.
 
 ## Available Scripts
 
