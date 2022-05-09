@@ -20,6 +20,24 @@ body {
 }
 
 .main-container {
+  position: relative;
   padding: 0 15vw;
   background-color: #15803d;
+}
+
+.score {
+  position: absolute;
+  top: 5vh;
+  left: 7.5vw;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 4px 4px -2px black;
+
+  p:first-of-type {
+    b {
+      color: black;
+    }
+    color: red;
+  }
 }

@@ -55,24 +55,27 @@ const Main = (props) => {
   }
 
   useEffect(() => {
-    console.log(score, clicked, current, best)
     if (clicked.includes(current)) {
-      setBest(score - 1);
+      if (score === 0 && best === 0 ) {
+        setBest(0)
+      } else {
+        setBest(score - 1);
+      }
       setClicked([])
       setCurrent(null)
       setScore(0)
     } else {
-      if (best === 12) {
-        setPokemons([...pokemons, 'Ivasaur', 'Ditto'])
+      if (best === 9) {
+        setPokemons([...pokemons, 'Mewtwo', 'Vivillon'])
       }
-      if (best === 10) {
-        setPokemons([...pokemons, 'Mew', 'Mewtwo'])
+      if (best === 7) {
+        setPokemons([...pokemons, 'Mew', 'Pidgey'])
       }
-      if (best === 8) {
-        setPokemons([...pokemons, 'Gengar', 'Weedle'])
+      if (best === 5) {
+        setPokemons([...pokemons, 'Beautifly', 'Starly'])
       }
-      if (best === 6) {
-        setPokemons([...pokemons, 'Dragonite', 'Arcanine'])
+      if (best === 3) {
+        setPokemons([...pokemons, 'Dragonite', 'Butterfree'])
       }
       if (score > best) {
         setBest(score)
@@ -87,6 +90,10 @@ const Main = (props) => {
 
   return (
     <main className='main-container'>
+      <div className='score'>
+        <p><b>Best:</b> {best}</p>
+        <p><b>Score:</b> {score}</p>
+      </div>
       <BoxGrid>
       { pokemonList ? pokemonList.map((pokemon) => {
           return <Card type={pokemon} key={pokemon.key} utility={pokemonClickEvent}/>
