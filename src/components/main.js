@@ -4,9 +4,13 @@ import Card from "./utils/box-card"
 import BoxGrid from "./utils/box-grids"
 
 const Main = (props) => {
-  const pokemons = ['charizard', 'charmander', 'pikachu'];
+  const pokemons = ['charizard', 'charmander', 'pikachu', 'bulbasaur', 'eevee', 'squirtle', 'blastoise', 'snorlax'];
   const [pokemonList, setPokemonList] = useState(null);
-
+  const shuffleList = (list) => {
+    return list.sort(() => {
+      return Math.random() < 0.5 ? -1 : 1
+    })
+  }
   // Fetch image and populate content
   useEffect(() => {
     // Fetch pokemon image from PokeAPI
@@ -29,7 +33,7 @@ const Main = (props) => {
         })
       })
     Promise.all(initializeState).then((obj) => {
-      setPokemonList(obj)
+      setPokemonList(shuffleList(obj))
     })
   }, [])
 
