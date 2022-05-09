@@ -1,15 +1,15 @@
-import userEvent from '@testing-library/user-event';
 import React, {useState, useEffect} from 'react'
 import uniqid from "uniqid";
 import Card from "./utils/box-card"
 import BoxGrid from "./utils/box-grids"
 
 const Main = (props) => {
-  const pokemons = ['charizard', 'charmander', 'pikachu', 'bulbasaur', 'eevee', 'squirtle', 'blastoise', 'snorlax'];
-  const [best, setBest] = useState(0)
-  const [score, setScore] = useState(0)
-  const [current, setCurrent] = useState(null)
-  const [clicked, setClicked] = useState([])
+  const initialPokemons = ['charizard', 'charmander', 'pikachu', 'bulbasaur', 'eevee', 'squirtle', 'blastoise', 'snorlax']
+  const [pokemons, setPokemons] = useState(initialPokemons);
+  const [best, setBest] = useState(0);
+  const [score, setScore] = useState(0);
+  const [current, setCurrent] = useState(null);
+  const [clicked, setClicked] = useState([]);
   const [pokemonList, setPokemonList] = useState(null);
 
   // Randomize a list using a sort function with a randomize method in it
@@ -20,17 +20,17 @@ const Main = (props) => {
     .map(({value}) => value)                
   }
 
+  // Fetch pokemon image from PokeAPI
+  const fetchImage = async (name) => {
+    const pokeData = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const pokeInfo = await pokeData.json();
+    const img = await pokeInfo.sprites.front_default;
+
+    return img
+  }
+
   // Fetch image and populate content
   useEffect(() => {
-    // Fetch pokemon image from PokeAPI
-    const fetchImage = async (name) => {
-      const pokeData = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-      const pokeInfo = await pokeData.json();
-      const img = await pokeInfo.sprites.front_default;
-
-      return img
-    }
-
     // Configure pokemon on start
     const initializeState = pokemons.map((pokemon) => {
         return fetchImage(pokemon).then((img) => {
@@ -44,7 +44,7 @@ const Main = (props) => {
     Promise.all(initializeState).then((obj) => {
       setPokemonList(shuffleList(obj))
     })
-  }, [])
+  }, [pokemons])
 
   function pokemonClickEvent(box) {
     setPokemonList(shuffleList(pokemonList))
@@ -60,6 +60,12 @@ const Main = (props) => {
       setCurrent(null)
       setScore(0)
     } else {
+      if (best === 8) {
+        setPokemons([...pokemons, 'gengar', 'weedle'])
+      }
+      if (best === 6) {
+        setPokemons([...pokemons, 'dragonite', 'arcanine'])
+      }
       if (score > best) {
         setBest(score)
       } 
