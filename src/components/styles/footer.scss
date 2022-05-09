@@ -1,0 +1,36 @@
+.footer-container {
+  background-color: #171515;
+  color: white;
+  height: 7.5vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  font-weight: 500;
+  
+  .left-footer {
+    display: flex;
+    gap: 0.4rem;
+    justify-self: end;
+    justify-content: center;
+    align-items: center;
+    padding-right: 2rem;
+
+    a {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  .right-footer {
+    justify-self: start;
+    padding-left: 2rem;
+    border-left: 0.25px solid white;
+
+    a {
+      color: white;
+    }
+  }
+}

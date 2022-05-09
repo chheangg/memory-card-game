@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react'
+import 'normalize.css'
 import uniqid from "uniqid";
 import Card from "./utils/box-card"
 import BoxGrid from "./utils/box-grids"
+import './styles/main.scss'
 
 const Main = (props) => {
-  const initialPokemons = ['charizard', 'charmander', 'pikachu', 'bulbasaur', 'eevee', 'squirtle', 'blastoise', 'snorlax']
+  const initialPokemons = ['Charizard', 'Charmander', 'Pikachu', 'Bulbasaur', 'Eevee', 'Squirtle', 'Blastoise', 'Snorlax']
   const [pokemons, setPokemons] = useState(initialPokemons);
   const [best, setBest] = useState(0);
   const [score, setScore] = useState(0);
@@ -22,7 +24,7 @@ const Main = (props) => {
 
   // Fetch pokemon image from PokeAPI
   const fetchImage = async (name) => {
-    const pokeData = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const pokeData = await fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
     const pokeInfo = await pokeData.json();
     const img = await pokeInfo.sprites.front_default;
 
@@ -53,18 +55,24 @@ const Main = (props) => {
   }
 
   useEffect(() => {
-    console.log(score, clicked, current)
+    console.log(score, clicked, current, best)
     if (clicked.includes(current)) {
       setBest(score - 1);
       setClicked([])
       setCurrent(null)
       setScore(0)
     } else {
+      if (best === 12) {
+        setPokemons([...pokemons, 'Ivasaur', 'Ditto'])
+      }
+      if (best === 10) {
+        setPokemons([...pokemons, 'Mew', 'Mewtwo'])
+      }
       if (best === 8) {
-        setPokemons([...pokemons, 'gengar', 'weedle'])
+        setPokemons([...pokemons, 'Gengar', 'Weedle'])
       }
       if (best === 6) {
-        setPokemons([...pokemons, 'dragonite', 'arcanine'])
+        setPokemons([...pokemons, 'Dragonite', 'Arcanine'])
       }
       if (score > best) {
         setBest(score)
